@@ -404,6 +404,8 @@ typedef $uint32_t ${macro_prefix}uint32_t;
 #ifdef __APPLE__
 typedef  long long ${macro_prefix}int64_t;
 typedef unsigned long long ${macro_prefix}uint64_t;
+typedef  long long ${macro_prefix}llong;
+typedef unsigned long long ${macro_prefix}ullong;
 #endif
 #endif
 

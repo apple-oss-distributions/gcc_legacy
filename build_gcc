@@ -625,16 +625,16 @@ for host in $HOSTS; do
 	LANGUAGES="$LANGUAGES" \
 	HOST_PREFIX="$buildhost-" HOST_PREFIX_1="$buildhost-" \
 	HOST_CC="`if [ $TARGET_OS = win32 ]; then echo gcc; \
-		  else echo ${NEXT_ROOT:+NEXT_ROOT=} /usr/bin/gcc3 -arch $buildhost -traditional-cpp; fi`" \
+		  else echo ${NEXT_ROOT:+NEXT_ROOT=} /usr/bin/gcc2 -arch $buildhost -traditional-cpp; fi`" \
 	GCC_FOR_TARGET="`if [ "$TARGET_OS" = win32 ]; then \
 			   echo ./xgcc -B./; \
 			 elif [ "$NEXT_ROOT" ]; then \
-			   echo /usr/bin/gcc3 -traditional-cpp; \
+			   echo /usr/bin/gcc2 -traditional-cpp; \
 			 elif [ $BUILD != $host ]; then \
 			   if [ -f ../cc-$target-on-$BUILD/xgcc ]; then \
 			     echo ../cc-$target-on-$BUILD/xgcc -arch $target \
 				  -B../cc-$target-on-$BUILD/ -traditional-cpp;\
-			   else echo /usr/bin/gcc3 -arch $target -traditional-cpp; fi; \
+			   else echo /usr/bin/gcc2 -arch $target -traditional-cpp; fi; \
 			 else echo ./xgcc -B./ -traditional-cpp; fi`" \
 	BISON="$BISON" \
 	CFLAGS="$OPTIMIZE $CFLAGS" \
@@ -646,7 +646,7 @@ for host in $HOSTS; do
 			 echo -sectorder __TEXT __text $SRCROOT/\\\$\$(@F).order -e start; \
 		       fi\\\`" \
 	CC="`if [ $TARGET_OS = win32 ]; then echo gcc; \
-		  else echo /usr/bin/gcc3 -arch $host -traditional-cpp ${bootstrap:+"$CFLAGS"}; fi`"
+		  else echo /usr/bin/gcc2 -arch $host -traditional-cpp ${bootstrap:+"$CFLAGS"}; fi`"
     then echo "== Finished building compilers for cc-$target-on-$host"
     else exit 1; fi
 
@@ -757,7 +757,7 @@ for target in $TARGETS; do
 
 	# get version of installed $target compiler
 
-      	/usr/bin/gcc3 -arch $target -v 2> $TEMP/tmp.$$
+      	/usr/bin/gcc2 -arch $target -v 2> $TEMP/tmp.$$
 	target_vers=`cat $TEMP/tmp.$$ 		\
 	 	 | grep 'version'	\
 	 	 | sed 's/, gcc.*$//'	\
@@ -768,7 +768,7 @@ for target in $TARGETS; do
 		install_new_cc
 	fi
 
-     compiler=/usr/bin/gcc3
+     compiler=/usr/bin/gcc2
      $RM -f specs
      cp /lib/$target/specs specs
      specs=
@@ -800,13 +800,13 @@ for target in $TARGETS; do
         srcdir=$SRCROOT/gcc \
 	LANGUAGES="$LANGUAGES" \
 	HOST_PREFIX="$arch-" HOST_PREFIX_1="$arch-" \
-	HOST_CC="/usr/bin/gcc3 -arch $arch -traditional-cpp" \
+	HOST_CC="/usr/bin/gcc2 -arch $arch -traditional-cpp" \
 	GCC_FOR_TARGET="$compiler -B./" \
 	CFLAGS="$OPTIMIZE $CFLAGS" \
 	BISON="$BISON" \
 	GCC_CFLAGS="-traditional-cpp $CFLAGS" \
 	AR_FOR_TARGET=ar \
-	CC="/usr/bin/gcc3 -arch $host -traditional-cpp" \
+	CC="/usr/bin/gcc2 -arch $host -traditional-cpp" \
 	LIBGCC2_INCLUDES=-I$SRCROOT/gcc/cp/inc \
 	TARGET_LIBGCC2_CFLAGS="-fnew-abi -fno-honor-std \
 	`if [ $target = ppc ]; then echo -mlong-branch -force_cpusubtype_ALL; fi` \
@@ -827,13 +827,13 @@ for target in $TARGETS; do
         srcdir=$SRCROOT/gcc \
 	LANGUAGES="$LANGUAGES" \
 	HOST_PREFIX="$arch-" HOST_PREFIX_1="$arch-" \
-	HOST_CC="/usr/bin/gcc3 -arch $arch -traditional-cpp" \
+	HOST_CC="/usr/bin/gcc2 -arch $arch -traditional-cpp" \
 	GCC_FOR_TARGET="$compiler -B./" \
 	CFLAGS="$OPTIMIZE $CFLAGS" \
 	BISON="$BISON" \
 	GCC_CFLAGS="-traditional-cpp $CFLAGS" \
 	AR_FOR_TARGET=ar \
-	CC="/usr/bin/gcc3 -arch $host -traditional-cpp" \
+	CC="/usr/bin/gcc2 -arch $host -traditional-cpp" \
 	LIBGCC2_INCLUDES=-I$SRCROOT/gcc/cp/inc \
 	TARGET_LIBGCC2_CFLAGS="-fnew-abi -fno-honor-std `if [ $target = ppc ]; then echo -force_cpusubtype_ALL; fi` \
 	-DIN_GCC -DPRIVATE_EXTERN=__private_extern__ -DPRIVATE_EXTERN_ASM_OP=\\\".private_extern\\\" -static"
@@ -853,13 +853,13 @@ for target in $TARGETS; do
         srcdir=$SRCROOT/gcc \
 	LANGUAGES="$LANGUAGES" \
 	HOST_PREFIX="$arch-" HOST_PREFIX_1="$arch-" \
-	HOST_CC="/usr/bin/gcc3 -arch $arch -traditional-cpp -DSHLIB" \
+	HOST_CC="/usr/bin/gcc2 -arch $arch -traditional-cpp -DSHLIB" \
 	GCC_FOR_TARGET="$compiler -B./" \
 	CFLAGS="$OPTIMIZE $CFLAGS" \
 	BISON="$BISON" \
 	GCC_CFLAGS="-traditional-cpp $CFLAGS" \
 	AR_FOR_TARGET=ar \
-	CC="/usr/bin/gcc3 -arch $host -traditional-cpp" \
+	CC="/usr/bin/gcc2 -arch $host -traditional-cpp" \
 	LIBGCC2_INCLUDES=-I$SRCROOT/gcc/cp/inc \
 	TARGET_LIBGCC2_CFLAGS="-DSHLIB -static"
 	then echo '== ok'; else exit 1; fi
@@ -877,13 +877,13 @@ for target in $TARGETS; do
         srcdir=$SRCROOT/gcc \
 	LANGUAGES="$LANGUAGES" \
 	HOST_PREFIX="$arch-" HOST_PREFIX_1="$arch-" \
-	HOST_CC="/usr/bin/gcc3 -arch $arch -traditional-cpp" \
+	HOST_CC="/usr/bin/gcc2 -arch $arch -traditional-cpp" \
 	GCC_FOR_TARGET="$compiler -B./" \
 	CFLAGS="$OPTIMIZE $CFLAGS" \
 	BISON="$BISON" \
 	GCC_CFLAGS="-traditional-cpp $CFLAGS" \
 	AR_FOR_TARGET=ar \
-	CC="/usr/bin/gcc3 -arch $host -traditional-cpp" \
+	CC="/usr/bin/gcc2 -arch $host -traditional-cpp" \
 	LIBGCC2_INCLUDES=-I$SRCROOT/gcc/cp/inc \
 	TARGET_LIBGCC2_CFLAGS="`if [ $target = ppc ]; then echo -static; fi`"
 	then echo '== ok'; else exit 1; fi
@@ -902,13 +902,13 @@ for target in $TARGETS; do
         srcdir=$SRCROOT/gcc \
 	LANGUAGES="$LANGUAGES" \
 	HOST_PREFIX="$arch-" HOST_PREFIX_1="$arch-" \
-	HOST_CC="/usr/bin/gcc3 -arch $arch -traditional-cpp" \
+	HOST_CC="/usr/bin/gcc2 -arch $arch -traditional-cpp" \
 	GCC_FOR_TARGET="$compiler -B./" \
 	CFLAGS="$OPTIMIZE $CFLAGS" \
 	BISON="$BISON" \
 	GCC_CFLAGS="-traditional-cpp $CFLAGS" \
 	AR_FOR_TARGET=ar \
-	CC="/usr/bin/gcc3 -arch $host -traditional-cpp" \
+	CC="/usr/bin/gcc2 -arch $host -traditional-cpp" \
 	LIBGCC2_INCLUDES=-I$SRCROOT/gcc/cp/inc \
 	TARGET_LIBGCC2_CFLAGS="-fnew-abi -fno-honor-std `if [ $target = ppc ]; then echo -force_cpusubtype_ALL; fi` -DIN_GCC -DPRIVATE_EXTERN=__private_extern__ -DPRIVATE_EXTERN_ASM_OP=\\\".private_extern\\\""
 	then echo '== ok'; else exit 1; fi
@@ -1132,13 +1132,13 @@ for library in libcc.a libcc_kext.a libcc_dynamic.a libcc_noc++.a; do
         srcdir=$SRCROOT/gcc \
 	LANGUAGES="$LANGUAGES" \
 	HOST_PREFIX="$arch-" HOST_PREFIX_1="$arch-" \
-	HOST_CC="/usr/bin/gcc3 -arch $arch -traditional-cpp" \
-	GCC_FOR_TARGET="/usr/bin/gcc3 -arch $target -traditional-cpp" \
+	HOST_CC="/usr/bin/gcc2 -arch $arch -traditional-cpp" \
+	GCC_FOR_TARGET="/usr/bin/gcc2 -arch $target -traditional-cpp" \
 	CFLAGS="$OPTIMIZE $CFLAGS" \
 	BISON="$BISON" \
 	GCC_CFLAGS="-traditional-cpp $CFLAGS" \
 	AR_FOR_TARGET=ar \
-	CC="/usr/bin/gcc3 -arch $host -traditional-cpp" \
+	CC="/usr/bin/gcc2 -arch $host -traditional-cpp" \
 	GCC_PASSES="" \
 	AR_FOR_TARGET="ar" \
 	LIBGCC2_INCLUDES=-I$SRCROOT/gcc/cp/inc \

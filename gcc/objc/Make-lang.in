@@ -64,16 +64,16 @@ cc1obj$(exeext): $(P) $(OBJS) $(OBJC_OBJS) $(LIBDEPS)
 
 # Objective C language specific files.
 
-objc-parse.o : objc-parse.c \
+objc-parse.o : $(srcdir)/objc-parse.c \
    $(CONFIG_H) $(TREE_H) $(srcdir)/toplev.h \
    $(srcdir)/c-lex.h $(srcdir)/c-tree.h $(srcdir)/input.h \
    $(srcdir)/flags.h $(srcdir)/output.h $(srcdir)/objc/objc-act.h system.h
 	$(CC) $(ALL_CFLAGS) $(ALL_CPPFLAGS) $(INCLUDES) -I$(srcdir)/objc \
-	-c objc-parse.c
+	-c $(srcdir)/objc-parse.c
 
 $(INTL_TARGETS): objc-parse.c
-objc-parse.c objc-parse.h : objc-parse.y
-	$(BISON) $(BISONFLAGS) -d -o objc-parse.c objc-parse.y
+#objc-parse.c objc-parse.h : objc-parse.y
+#	$(BISON) $(BISONFLAGS) -d -o objc-parse.c objc-parse.y
 
 objc-parse.y: $(srcdir)/c-parse.in
 	-rm -f  objc-parse.y
@@ -92,7 +92,7 @@ objc-act.o : $(srcdir)/objc/objc-act.c \
    $(CONFIG_H) $(TREE_H) $(RTL_H) system.h \
    $(srcdir)/c-tree.h $(srcdir)/c-lex.h $(srcdir)/toplev.h \
    $(srcdir)/flags.h $(srcdir)/objc/objc-act.h $(srcdir)/input.h \
-   $(srcdir)/function.h $(srcdir)/output.h objc-parse.h
+   $(srcdir)/function.h $(srcdir)/output.h $(srcdir)/objc-parse.h
 	$(CC) $(ALL_CFLAGS) $(ALL_CPPFLAGS) $(INCLUDES) -I$(srcdir)/objc \
 	-c $(srcdir)/objc/objc-act.c
 

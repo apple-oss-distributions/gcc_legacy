@@ -216,8 +216,8 @@ RTL_H = $(srcdir)/../rtl.h $(srcdir)/../rtl.def \
 TREE_H = $(srcdir)/../tree.h $(srcdir)/../real.h $(srcdir)/../tree.def \
 	$(srcdir)/../machmode.h $(srcdir)/../machmode.def
 CXX_TREE_H = $(TREE_H) cp-tree.h cp-tree.def
-PARSE_H = parse.h
-PARSE_C = parse.c
+PARSE_H = $(srcdir)/parse.h
+PARSE_C = $(srcdir)/parse.c
 EXPR_H = $(srcdir)/../expr.h ../insn-codes.h
 
 parse.o : $(PARSE_C) $(CONFIG_H) $(CXX_TREE_H) $(srcdir)/../flags.h lex.h \
@@ -227,11 +227,11 @@ parse.o : $(PARSE_C) $(CONFIG_H) $(CXX_TREE_H) $(srcdir)/../flags.h lex.h \
   `echo $(PARSE_C) | sed 's,^\./,,'`
 
 CONFLICTS = expect 30 shift/reduce conflicts and 42 reduce/reduce conflicts.
-$(PARSE_H) : $(PARSE_C)
-$(PARSE_C) : parse.y
-	@echo $(CONFLICTS)
-	$(BISON) $(BISONFLAGS) -d -o parse.c $<
-	grep '^#define[ 	]*YYEMPTY' parse.c >>parse.h
+#$(PARSE_H) : $(PARSE_C)
+#$(PARSE_C) : parse.y
+#	@echo $(CONFLICTS)
+#	$(BISON) $(BISONFLAGS) -d -o parse.c $<
+#	grep '^#define[ 	]*YYEMPTY' parse.c >>parse.h
 
 #parse.y : parse.in
 #	sed `case "$(target)" in i*86-nextpdo-winnt3*) \
